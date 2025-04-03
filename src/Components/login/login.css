@@ -1,69 +1,102 @@
 .login-container {
-  display: flex;
-  justify-content: center; /* Центрирование по горизонтали */
-  align-items: center; /* Центрирование по вертикали */
-  height: 100vh; /* Высота экрана */
-  background-color: #f3f4f6; /* bg-gray-100 */
-}
-
-.login-form {
-  background-color: #ffffff; /* bg-white */
-  padding: 30px;
-  border-radius: 8px; /* rounded-md */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* shadow-md */
-  width: 100%;
   max-width: 400px;
-  text-align: center; /* Центрирование текста внутри формы */
+  margin: 50px auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
 }
 
-.login-title {
-  font-size: 1.5rem; /* text-2xl */
-  font-weight: 600; /* font-semibold */
+.login-container.text-light {
+  background-color: #fff;
+  color: #000;
+}
+
+.login-container.text-dark {
+  background-color: #333;
+  color: #fff;
+}
+
+.login-container.text-dark input {
+  background-color: #444;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.login-container.text-dark input:focus {
+  border-color: #246bfd;
+}
+
+.login-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* Высота страницы */
+}
+
+.login-content {
+  flex: 1; /* Занимает всё доступное пространство */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container h2 {
   text-align: center;
-  margin-bottom: 24px; /* mb-6 */
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.input-field {
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input {
   width: 100%;
   padding: 10px;
-  margin-bottom: 16px;
-  border: 1px solid #d1d5db; /* border */
-  border-radius: 6px; /* rounded-md */
+  border: 1px solid #ccc;
+  border-radius: 4px;
   outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  transition: border-color 0.3s ease;
 }
 
-.input-field:focus {
-  border-color: #3b82f6; /* focus:ring-blue-500 */
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5); /* focus:ring-2 */
+.form-group input:focus {
+  border-color: #246bfd;
 }
 
-.login-button {
+.login-btn {
   width: 100%;
   padding: 12px;
-  background-color: #3b82f6; /* bg-blue-500 */
-  color: #ffffff; /* text-white */
+  background-color: #246bfd;
+  color: white;
   border: none;
-  border-radius: 6px; /* rounded-md */
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
-.login-button:hover {
-  background-color: #2563eb; /* hover:bg-blue-600 */
+.login-btn:hover {
+  background-color: #0056b3;
 }
 
 .register-link {
   text-align: center;
-  margin-top: 16px;
-  font-size: 0.875rem;
+  margin-top: 15px;
 }
 
 .register-link a {
-  color: #3b82f6; /* text-blue-500 */
+  color: #246bfd;
   text-decoration: none;
+  font-weight: bold;
 }
 
 .register-link a:hover {

@@ -6,12 +6,14 @@ import {
   Navigate,
 } from "react-router-dom";
 import Navbar from "./Components/navbar/navbar";
-import Home from "./Components/home/home";
+import Home from "./Components/home/Home";
 import Register from "./Components/register/register";
 import Login from "./Components/login/login";
 import Contacts from "./Components/contacts/contacts";
 import Loader from "./Components/loader/loader";
 import Recommend from "./Components/recommend/Recommend";
+import Footer from "./Components/footer/Footer";
+import AdDetails from "./Components/adDetails/AdDetails";
 
 const App = () => {
   const [theme, setTheme] = useState(
@@ -40,18 +42,20 @@ const App = () => {
       <div className={`container ${theme}`}>
         <Navbar theme={theme} setTheme={setTheme} />
         <Routes>
-          <Route path="/" element={<Home theme={theme} />} />
+          <Route path="/" element={<Home theme={theme} />} exact />
           <Route path="/ads" element={<Recommend theme={theme} />} />
+          <Route path="/ads/:id" element={<AdDetails />} />
           <Route
             path="/profile"
             element={
               isAuthenticated ? <UserProfile /> : <Navigate to="/login" />
             }
           />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register theme={theme} />} />
+          <Route path="/login" element={<Login theme={theme} />} />
           <Route path="/contacts" element={<Contacts />} />
         </Routes>
+        {Footer && <Footer theme={theme} />}
       </div>
     </Router>
   );

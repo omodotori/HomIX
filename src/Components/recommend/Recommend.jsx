@@ -1,10 +1,23 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import listings from "../../data/listings.json";
 import "./recommend.css";
+import city from "../../assets/city.png";
 
 const Recommend = ({ theme }) => {
   const [showFilter, setShowFilter] = useState(false);
+  const [filters, setFilters] = useState({
+    type: "",
+    dealType: "",
+    city: "",
+    minPrice: "",
+    maxPrice: "",
+  });
 
-  const toggleFilter = () => {
+  const [filteredListings, setFilteredListings] = useState(listings);
+
+  const toggleFilter = (e) => {
+    e.preventDefault();
     setShowFilter(!showFilter);
   };
 
@@ -12,6 +25,54 @@ const Recommend = ({ theme }) => {
     if (e.target.classList.contains("filter-modal")) {
       setShowFilter(false);
     }
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({
+      ...prevFilters,
+      [name]: value,
+    }));
+  };
+
+  const applyFilter = (e) => {
+    e.preventDefault();
+    const filtered = listings.filter((ad) => {
+      const matchesType = filters.type ? ad.type === filters.type : true;
+      const matchesDealType = filters.dealType
+        ? ad.deal_type === filters.dealType
+        : true;
+      const matchesCity = filters.city
+        ? ad.city.toLowerCase().includes(filters.city.toLowerCase())
+        : true;
+      const matchesMinPrice = filters.minPrice
+        ? parseInt(ad.price.replace(/\D/g, "")) >= parseInt(filters.minPrice)
+        : true;
+      const matchesMaxPrice = filters.maxPrice
+        ? parseInt(ad.price.replace(/\D/g, "")) <= parseInt(filters.maxPrice)
+        : true;
+
+      return (
+        matchesType &&
+        matchesDealType &&
+        matchesCity &&
+        matchesMinPrice &&
+        matchesMaxPrice
+      );
+    });
+    setFilteredListings(filtered);
+    setShowFilter(false);
+  };
+
+  const resetFilter = () => {
+    setFilters({
+      type: "",
+      dealType: "",
+      city: "",
+      minPrice: "",
+      maxPrice: "",
+    });
+    setFilteredListings(listings);
   };
 
   return (
@@ -22,117 +83,111 @@ const Recommend = ({ theme }) => {
           Filter
         </button>
       </div>
-      <div className="recommendation-list">{/* Список рекомендаций */}</div>
+      <div className="recommendation-list">
+        {filteredListings.map((ad) => {
+          return (
+            <Link
+              to={`/ads/${ad.id}`}
+              key={ad.id}
+              className={`ad_container text-${theme}`}
+            >
+              <img src={ad.img} alt={ad.type} className="ad_image" />
+              <h1 className="ad_type">{ad.type}</h1>
+              <p className="ad_descrption">{ad.description}</p>
+              <div className="ad_info">
+                <p className="ad_city">
+                  <img src={city} alt="city" />
+                  {ad.city}
+                </p>
+                <p className="ad_price">
+                  {ad.price}{" "}
+                  <span className="ad_price_type">{ad.price_type}</span>
+                </p>
+              </div>
+            </Link>
+          );
+        })}
+      </div>
       {showFilter && (
         <div className={`filter-modal text-${theme}`} onClick={closeFilter}>
           <div className={`filter-content text-${theme}`}>
             <h2>Фильтры</h2>
-            <form>
-              {/* Основные фильтры */}
+            <form onSubmit={applyFilter}>
               <div className="filter-group">
-                <label>Тип недвижимости</label>
-                <select>
-                  <option>Квартира</option>
-                  <option>Дом</option>
-                  <option>Коммерческая</option>
-                  <option>Земельный участок</option>
+                <label>Тип недвижимости:</label>
+                <select
+                  name="type"
+                  value={filters.type}
+                  onChange={handleFilterChange}
+                >
+                  <option value="">Все</option>
+                  <option value="Квартира">Квартира</option>
+                  <option value="Дом">Дом</option>
+                  <option value="Коммерческая недвижимость">
+                    Коммерческая недвижимость
+                  </option>
+                  <option value="Земельный участок">Земельный участок</option>
                 </select>
               </div>
               <div className="filter-group">
-                <label>Тип сделки</label>
-                <select>
-                  <option>Покупка</option>
-                  <option>Аренда</option>
+                <label>Тип сделки:</label>
+                <select
+                  name="dealType"
+                  value={filters.dealType}
+                  onChange={handleFilterChange}
+                >
+                  <option value="">Все</option>
+                  <option value="Покупка">Покупка</option>
+                  <option value="Аренда">Аренда</option>
                 </select>
               </div>
               <div className="filter-group">
-                <label>Город / Район</label>
-                <input type="text" placeholder="Введите город или район" />
+                <label>Город:</label>
+                <input
+                  type="text"
+                  name="city"
+                  value={filters.city}
+                  onChange={handleFilterChange}
+                  placeholder="Введите город"
+                />
               </div>
               <div className="filter-group">
-                <label>Цена (От - До)</label>
+                <label>Цена (от - до):</label>
                 <div className="filter-range">
-                  <input type="number" placeholder="От" />
-                  <input type="number" placeholder="До" />
+                  <input
+                    type="number"
+                    name="minPrice"
+                    value={filters.minPrice}
+                    onChange={handleFilterChange}
+                    placeholder="От"
+                  />
+                  <input
+                    type="number"
+                    name="maxPrice"
+                    value={filters.maxPrice}
+                    onChange={handleFilterChange}
+                    placeholder="До"
+                  />
                 </div>
               </div>
-              <div className="filter-group">
-                <label>Площадь (м²)</label>
-                <div className="filter-range">
-                  <input type="number" placeholder="От" />
-                  <input type="number" placeholder="До" />
-                </div>
-              </div>
-              <div className="filter-group">
-                <label>Количество комнат</label>
-                <select>
-                  <option>Студия</option>
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4+</option>
-                </select>
-              </div>
-
-              {/* Дополнительные фильтры */}
-              <div className="filter-group">
-                <label>Этаж / Этажность</label>
-                <select>
-                  <option>Не первый</option>
-                  <option>Не последний</option>
-                </select>
-              </div>
-              <div className="filter-group">
-                <label>Год постройки</label>
-                <input type="number" placeholder="Введите год" />
-              </div>
-              <div className="filter-group">
-                <label>Мебель</label>
-                <select>
-                  <option>С мебелью</option>
-                  <option>Без мебели</option>
-                </select>
-              </div>
-              <div className="filter-group">
-                <label>Дополнительно</label>
-                <div>
-                  <label>
-                    <input type="checkbox" /> Паркинг
-                  </label>
-                  <label>
-                    <input type="checkbox" /> Лифт
-                  </label>
-                  <label>
-                    <input type="checkbox" /> Балкон
-                  </label>
-                  <label>
-                    <input type="checkbox" /> Только с фото
-                  </label>
-                  <label>
-                    <input type="checkbox" /> Новостройка
-                  </label>
-                  <label>
-                    <input type="checkbox" /> Вторичка
-                  </label>
-                </div>
-              </div>
-
-              {/* Сортировка */}
-              <div className="filter-group">
-                <label>Сортировка</label>
-                <select>
-                  <option>По цене (возрастание)</option>
-                  <option>По цене (убывание)</option>
-                  <option>По дате добавления</option>
-                  <option>По площади</option>
-                </select>
-              </div>
-
               <div className="filter-actions">
-                <button type="submit" className="apply-btn">
-                  Применить
-                </button>
-                <button className="close-btn" onClick={toggleFilter}>
+                <div className="left-buttons">
+                  <button type="submit" className="apply-btn">
+                    Применить фильтр
+                  </button>
+                  <button
+                    type="button"
+                    className="close-btn"
+                    onClick={resetFilter}
+                  >
+                    Сбросить фильтр
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  className="close-filter-btn"
+                  onClick={toggleFilter}
+                >
                   Закрыть
                 </button>
               </div>

@@ -1,0 +1,34 @@
+.footer {
+  width: 100%;
+  padding: 20px 0;
+  text-align: center;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.footer.light {
+  background-color: #f8f9fa;
+  color: #000;
+}
+
+.footer.dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.footer-link {
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer-link.text-light {
+  color: #007bff;
+}
+
+.footer-link.text-dark {
+  color: #4da6ff;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}

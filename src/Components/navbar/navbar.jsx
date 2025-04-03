@@ -16,8 +16,8 @@ const Navbar = ({ theme, setTheme }) => {
   return (
     <div className={`navbar ${theme}`}>
       <img
-        src={theme === "light" ? logo_light : logo_dark}
-        alt=""
+        src={theme === "light" ? logo_light || "" : logo_dark || ""}
+        alt="Логотип"
         className="logo"
       />
 
@@ -62,8 +62,8 @@ const Navbar = ({ theme, setTheme }) => {
       </div>
 
       <img
-        src={theme === "light" ? toogle_light : toogle_dark}
-        alt="plplp"
+        src={theme === "light" ? toogle_light || "" : toogle_dark || ""}
+        alt="Переключатель темы"
         className="toogle-icon"
         onClick={toggleTheme}
       />

@@ -18,6 +18,9 @@ ul {
   flex: 1;
   list-style: none;
   text-align: center;
+  display: flex; /* Добавлено для горизонтального выравнивания */
+  justify-content: center; /* Центрирование элементов */
+  gap: 20px; /* Расстояние между элементами */
 }
 
 ul li {

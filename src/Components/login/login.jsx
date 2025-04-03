@@ -1,21 +1,34 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./login.css";
 
-const Login = () => {
+const Login = ({ theme }) => {
   return (
-    <div className="login-container">
-      <div className="login-form">
-        <h2 className="login-title">Войти</h2>
-        <form>
-          <input type="email" placeholder="Email" className="input-field" />
-          <input type="password" placeholder="Пароль" className="input-field" />
-          <button type="submit" className="login-button">
-            Войти
-          </button>
-        </form>
-        <p className="register-link">
-          Нет аккаунта? <a href="/register">Зарегистрироваться</a>
-        </p>
+    <div className={`login-page ${theme}`}>
+      <div className="login-content">
+        <div className={`login-container text-${theme}`}>
+          <h2>Войти</h2>
+          <form>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="Введите ваш email" required />
+            </div>
+            <div className="form-group">
+              <label>Пароль</label>
+              <input
+                type="password"
+                placeholder="Введите ваш пароль"
+                required
+              />
+            </div>
+            <button type="submit" className="login-btn">
+              Войти
+            </button>
+          </form>
+          <p className="register-link">
+            Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

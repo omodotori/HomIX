@@ -1,13 +1,13 @@
 .hero {
   display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
   text-align: left;
   padding: 50px;
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   max-width: 1200px;
-  margin: 5% auto 0;
+  margin: 5% auto;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   gap: 20px;
 }
@@ -21,14 +21,17 @@
   height: 100%;
 }
 
+.hero-text h1,
+.hero-text p {
+  margin-bottom: 20px;
+}
+
 .hero-text h1 {
   font-size: 36px;
-  margin-bottom: 20px;
 }
 
 .hero-text p {
   font-size: 18px;
-  margin-bottom: 20px;
 }
 
 .buttons {
@@ -60,13 +63,13 @@
 }
 
 .secondary-btn {
-  background-color: #f0f0f0;
-  color: #246BFD;
-  border: 2px solid #246BFD;
+  background-color: #ffffff;
+  color: #246bfd;
+  border: 2px solid #246bfd;
 }
 
 .secondary-btn:hover {
-  background-color: #e0e0e0;
+  background-color: #efefef;
   transform: scale(1.05);
   border: 3px solid #0056b3;
 }
@@ -86,10 +89,70 @@
   background-color: #333;
 }
 
-.container.light .hero-text {
-  color: #000;
+.container.light .hero-text,
+.container.dark .hero-text {
+  color: inherit;
 }
 
-.container.dark .hero-text {
-  color: #fff;
+.slider {
+  list-style-type: none;
+  padding: 0;
+  margin: 30px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 1200px;
+  height: 500px;
+}
+
+.slider-light .item {
+  border: 1px solid #ccc;
+}
+
+.slider-dark .item {
+  border: 1px solid #555;
+}
+
+.slider .item {
+  flex: 1 1 25%;
+  height: 100%;
+  background: no-repeat center/cover;
+  text-align: center;
+  transition: 0.5s;
+  margin: 10px 20px; /* Применяется только к li внутри .slider */
+}
+
+.slider .item:hover {
+  flex-basis: 75%;
+}
+
+.slider .item span {
+  display: inline-block;
+  font-size: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 6px 12px;
+  margin-top: 10%;
+}
+
+/* Убедитесь, что правило ul li не глобальное */
+ul li {
+  margin: 0; /* Убираем глобальное влияние */
+}
+
+@media (max-width: 640px) {
+  .slider {
+    flex-direction: column;
+    max-width: 100%;
+  }
+  .slider .item {
+    width: 100%;
+  }
+  .slider .item:hover {
+    flex-grow: 40%;
+  }
+  .slider .item span {
+    font-size: 1.3em;
+  }
 }

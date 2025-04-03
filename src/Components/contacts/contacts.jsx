@@ -2,6 +2,11 @@ import React from "react";
 import "./contacts.css";
 
 const Contacts = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Ваше сообщение отправлено!");
+  };
+
   return (
     <div className="container-login">
       <h2>Свяжитесь с нами</h2>
@@ -13,7 +18,7 @@ const Contacts = () => {
         <p>📍 г. Алматы, ул. Достык, 55</p>
       </div>
 
-      <form className="contact-form">
+      <form className="contact-form" onSubmit={handleSubmit}>
         <input type="text" placeholder="Ваше имя" />
         <input type="email" placeholder="Ваш Email" />
         <textarea placeholder="Ваше сообщение"></textarea>

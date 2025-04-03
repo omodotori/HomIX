@@ -1,0 +1,61 @@
+.ad-details {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+.ad-details__type {
+  width: auto;
+  height: auto;
+  padding: 10px 15px; /* Увеличиваем отступы */
+  background-color: #e6f7ff; /* Светло-голубой фон */
+  color: #0056b3; /* Более насыщенный синий цвет текста */
+  margin-bottom: 20px;
+  font-size: 20px; /* Уменьшаем шрифт для лучшего соответствия */
+  font-weight: bold; /* Делаем текст жирным */
+  text-align: center;
+  border: 2px solid #0056b3; /* Добавляем рамку */
+  border-radius: 12px; /* Закругляем углы */
+}
+
+.ad-details p {
+  margin: 10px 0;
+  font-size: 16px;
+}
+
+.ad-details__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fff;
+}
+
+.ad-details__image {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.ad-details__title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.ad-details__description,
+.ad-details__city,
+.ad-details__price {
+  font-size: 16px;
+  margin: 5px 0;
+  color: #555;
+}

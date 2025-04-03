@@ -1,31 +1,38 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./register.css";
 
-const Register = () => {
+const Register = ({ theme }) => {
   return (
-    <div className="register-container">
-      <div className="register-form">
-        <h2 className="register-title">Регистрация</h2>
-        <form>
-          <input type="text" placeholder="Имя" className="input-field" />
-          <input type="email" placeholder="Email" className="input-field" />
-          <input type="password" placeholder="Пароль" className="input-field" />
-          <input
-            type="password"
-            placeholder="Подтвердите пароль"
-            className="input-field"
-          />
-          <select className="input-field">
-            <option value="buyer">Покупатель</option>
-            <option value="landlord">Арендодатель</option>
-          </select>
-          <button type="submit" className="register-button">
-            Зарегистрироваться
-          </button>
-        </form>
-        <p className="login-link">
-          Уже есть аккаунт? <a href="/login">Войти</a>
-        </p>
+    <div className={`register-page ${theme}`}>
+      <div className="register-content">
+        <div className={`register-container text-${theme}`}>
+          <h2>Регистрация</h2>
+          <form>
+            <div className="form-group">
+              <label>Имя</label>
+              <input type="text" placeholder="Введите ваше имя" required />
+            </div>
+            <div className="form-group">
+              <label>Email</label>
+              <input type="email" placeholder="Введите ваш email" required />
+            </div>
+            <div className="form-group">
+              <label>Пароль</label>
+              <input
+                type="password"
+                placeholder="Введите ваш пароль"
+                required
+              />
+            </div>
+            <button type="submit" className="register-btn">
+              Зарегистрироваться
+            </button>
+          </form>
+          <p className="login-link">
+            Уже есть аккаунт? <Link to="/login">Войти</Link>
+          </p>
+        </div>
       </div>
     </div>
   );

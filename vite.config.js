@@ -1,14 +1,15 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default defineConfig({
   plugins: [react()],
-  base: '/HomIX/',
+  base: "/HomIX/",
   build: {
-    outDir: 'dist',
+    outDir: "dist",
     sourcemap: true,
   },
-  serve: {
+  server: {
+    // Исправлено с serve на server
     port: 3000,
   },
-})
+});
