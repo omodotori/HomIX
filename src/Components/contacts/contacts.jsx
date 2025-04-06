@@ -1,28 +1,33 @@
 import React from "react";
 import "./contacts.css";
 
-const Contacts = () => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    alert("Ваше сообщение отправлено!");
-  };
-
+const Contacts = ({ theme }) => {
   return (
-    <div className="container-login">
-      <h2>Свяжитесь с нами</h2>
-      <p>Если у вас есть вопросы, напишите нам.</p>
-
-      <div className="contact-info">
-        <p>📞 +7 (777) 123-45-67</p>
-        <p>📧 support@example.com</p>
-        <p>📍 г. Алматы, ул. Достык, 55</p>
-      </div>
-
-      <form className="contact-form" onSubmit={handleSubmit}>
-        <input type="text" placeholder="Ваше имя" />
-        <input type="email" placeholder="Ваш Email" />
-        <textarea placeholder="Ваше сообщение"></textarea>
-        <button type="submit">Отправить</button>
+    <div className={`contacts-container ${theme}`}>
+      <h1 className="contacts-title">Свяжитесь с нами</h1>
+      <p className="contacts-description">
+        Если у вас есть вопросы или предложения, пожалуйста, заполните форму
+        ниже, и мы свяжемся с вами в ближайшее время.
+      </p>
+      <form className="contacts-form">
+        <div className="form-group">
+          <label htmlFor="name">Имя</label>
+          <input type="text" id="name" placeholder="Введите ваше имя" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="email">Электронная почта</label>
+          <input type="email" id="email" placeholder="Введите ваш email" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="message">Сообщение</label>
+          <textarea
+            id="message"
+            placeholder="Введите ваше сообщение"
+          ></textarea>
+        </div>
+        <button type="submit" className="submit-btn">
+          Отправить
+        </button>
       </form>
     </div>
   );

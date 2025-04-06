@@ -14,12 +14,16 @@ import Loader from "./Components/loader/loader";
 import Recommend from "./Components/recommend/Recommend";
 import Footer from "./Components/footer/Footer";
 import AdDetails from "./Components/adDetails/AdDetails";
+import Profile from "./Components/profile/Profile";
+import "../src/index.css";
 
 const App = () => {
   const [theme, setTheme] = useState(
     () => localStorage.getItem("current_theme") || "light"
   );
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(
+    () => localStorage.getItem("isAuthenticated") === "true"
+  );
   const [loading, setLoading] = useState(true);
 
   const saveThemeToLocalStorage = useCallback(() => {
@@ -35,6 +39,11 @@ const App = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+    localStorage.removeItem("isAuthenticated");
+  };
+
   if (loading) return <LoaderContainer />;
 
   return (
@@ -42,18 +51,67 @@ const App = () => {
       <div className={`container ${theme}`}>
         <Navbar theme={theme} setTheme={setTheme} />
         <Routes>
-          <Route path="/" element={<Home theme={theme} />} exact />
-          <Route path="/ads" element={<Recommend theme={theme} />} />
-          <Route path="/ads/:id" element={<AdDetails />} />
+          <Route
+            path="/"
+            element={
+              <div className="page">
+                <Home theme={theme} />
+              </div>
+            }
+            exact
+          />
+          <Route
+            path="/ads"
+            element={
+              <div className="page">
+                <Recommend theme={theme} />
+              </div>
+            }
+          />
+          <Route
+            path="/ads/:id"
+            element={
+              <div className="page">
+                <AdDetails theme={theme} />
+              </div>
+            }
+          />
           <Route
             path="/profile"
             element={
-              isAuthenticated ? <UserProfile /> : <Navigate to="/login" />
+              <div className="page">
+                {isAuthenticated ? (
+                  <Profile theme={theme} onLogout={handleLogout} />
+                ) : (
+                  <Navigate to="/login" />
+                )}
+              </div>
             }
           />
-          <Route path="/register" element={<Register theme={theme} />} />
-          <Route path="/login" element={<Login theme={theme} />} />
-          <Route path="/contacts" element={<Contacts />} />
+          <Route
+            path="/register"
+            element={
+              <div className="page">
+                <Register theme={theme} />
+              </div>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <div className="page">
+                <Login theme={theme} setIsAuthenticated={setIsAuthenticated} />
+              </div>
+            }
+          />
+          <Route
+            path="/contacts"
+            element={
+              <div className="page">
+                <Contacts theme={theme} />
+              </div>
+            }
+          />
         </Routes>
         {Footer && <Footer theme={theme} />}
       </div>
@@ -66,7 +124,5 @@ const LoaderContainer = () => (
     <Loader />
   </div>
 );
-
-const UserProfile = () => <div>Профиль пользователя</div>;
 
 export default App;

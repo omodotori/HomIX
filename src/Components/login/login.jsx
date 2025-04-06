@@ -1,35 +1,67 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./login.css";
 
-const Login = ({ theme }) => {
+const Login = ({ theme, setIsAuthenticated }) => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (email === "admin@example.com" && password === "Admin@12345") {
+      setIsAuthenticated(true);
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/profile");
+    } else {
+      alert("Неверный email или пароль");
+    }
+  };
+
   return (
-    <div className={`login-page ${theme}`}>
-      <div className="login-content">
-        <div className={`login-container text-${theme}`}>
-          <h2>Войти</h2>
-          <form>
-            <div className="form-group">
-              <label>Email</label>
-              <input type="email" placeholder="Введите ваш email" required />
-            </div>
-            <div className="form-group">
-              <label>Пароль</label>
-              <input
-                type="password"
-                placeholder="Введите ваш пароль"
-                required
-              />
-            </div>
-            <button type="submit" className="login-btn">
-              Войти
-            </button>
-          </form>
-          <p className="register-link">
-            Нет аккаунта? <Link to="/register">Зарегистрироваться</Link>
-          </p>
+    <div className={`login-container ${theme}`}>
+      <h1 className={`login-title ${theme}`}>Вход</h1>
+      <form className="login-form" onSubmit={handleLogin}>
+        <div className="form-group">
+          <label htmlFor="email" className={`label-${theme}`}>
+            Электронная почта
+          </label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Введите ваш email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
-      </div>
+        <div className="form-group">
+          <label htmlFor="password" className={`label-${theme}`}>
+            Пароль
+          </label>
+          <div className="password-container">
+            <input
+              type={showPassword ? "text" : "password"}
+              id="password"
+              placeholder="Введите ваш пароль"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Скрыть" : "Показать"}
+            </button>
+          </div>
+        </div>
+        <button type="submit" className="login-btn">
+          Войти
+        </button>
+      </form>
     </div>
   );
 };

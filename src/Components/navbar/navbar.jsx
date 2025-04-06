@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useSearchStore from "../../store/searchStore";
 import "./navbar.css";
 import logo_light from "../../assets/HomIX_light.png";
 import logo_dark from "../../assets/HomIX_dark.png";
@@ -9,8 +10,15 @@ import toogle_light from "../../assets/night.png";
 import toogle_dark from "../../assets/day.png";
 
 const Navbar = ({ theme, setTheme }) => {
+  const { query, setQuery } = useSearchStore();
+  const navigate = useNavigate();
+
   const toggleTheme = () => {
     setTheme(theme === "light" ? "dark" : "light");
+  };
+
+  const handleLogoClick = () => {
+    navigate("/");
   };
 
   return (
@@ -19,6 +27,7 @@ const Navbar = ({ theme, setTheme }) => {
         src={theme === "light" ? logo_light || "" : logo_dark || ""}
         alt="Логотип"
         className="logo"
+        onClick={handleLogoClick}
       />
 
       <ul className={`text-${theme}`}>
@@ -54,10 +63,15 @@ const Navbar = ({ theme, setTheme }) => {
       </ul>
 
       <div className="search-box">
-        <input type="text" placeholder="Search" />
+        <input
+          type="text"
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Поиск..."
+        />
         <img
           src={theme === "light" ? search_icon_light : search_icon_dark}
-          alt=""
+          alt="Иконка поиска"
         />
       </div>
 
@@ -65,7 +79,7 @@ const Navbar = ({ theme, setTheme }) => {
         src={theme === "light" ? toogle_light || "" : toogle_dark || ""}
         alt="Переключатель темы"
         className="toogle-icon"
-        onClick={toggleTheme}
+        onClick={toggleTheme} // Управление темой через Navbar
       />
     </div>
   );

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./home.css";
 import banner_home from "../../assets/banner-home.png";
 import astanaImage from "../../assets/astana.png";
@@ -7,8 +8,18 @@ import aktauImage from "../../assets/aktau.png";
 import shymkentImage from "../../assets/shymkent.png";
 
 const Home = ({ theme }) => {
+  const navigate = useNavigate();
+
+  const handleNavigateToAds = () => {
+    navigate("/ads");
+  };
+
+  const handleNavigateToContacts = () => {
+    navigate("/contacts");
+  };
+
   return (
-    <div>
+    <div className={`home-container moving-background ${theme}`}>
       <div className={`hero ${theme}`}>
         <div className={`hero-text text-${theme}`}>
           <h1 style={{ color: theme === "light" ? "black" : "white" }}>
@@ -18,8 +29,15 @@ const Home = ({ theme }) => {
             Покупка, аренда и управление в одном месте
           </p>
           <div className="buttons">
-            <button className="primary-btn">Найти жилье</button>
-            <button className="secondary-btn">Разместить объявление</button>
+            <button className="primary-btn" onClick={handleNavigateToAds}>
+              Найти жилье
+            </button>
+            <button
+              className="secondary-btn"
+              onClick={handleNavigateToContacts}
+            >
+              Свяжитесь с нами
+            </button>
           </div>
         </div>
         <img src={banner_home} alt="Дом" className="hero-image" />
